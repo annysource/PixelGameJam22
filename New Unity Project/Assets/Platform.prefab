@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7331845280298743764}
   - component: {fileID: 7331845280298743765}
   - component: {fileID: 7331845280298743722}
+  - component: {fileID: 6826231866433420241}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7331845280298743723}
   m_LocalRotation: {x: -0, y: -0.0068966816, z: -0, w: 0.9999762}
   m_LocalPosition: {x: 0.6557, y: -3.2359, z: 0}
-  m_LocalScale: {x: 0.21115534, y: 0.14535128, z: 1}
+  m_LocalScale: {x: 0.5113486, y: 0.5113486, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 351b09e6291255640b348164268d98ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2979195136271bf42a756c7e5f89b611, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,9 +103,13 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0.1}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -1.511589, y: 0.71841043}
-  - {x: 0.04995492, y: 0.6818832}
-  - {x: 1.56, y: 0.76394266}
+  - {x: -1.7379252, y: -0.08578939}
+  - {x: -0.9537407, y: -0.15040427}
+  - {x: -0.470258, y: -0.1768885}
+  - {x: -0.12689401, y: -0.15527387}
+  - {x: 1.0252225, y: -0.112915404}
+  - {x: 1.4787676, y: -0.14046419}
+  - {x: 2.0656593, y: -0.09298871}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -128,3 +133,16 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &6826231866433420241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7331845280298743723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae898d13c0a14049b5456e9be96c729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 12
