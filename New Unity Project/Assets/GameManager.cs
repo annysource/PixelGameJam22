@@ -201,21 +201,31 @@ public class GameManager : MonoBehaviour
                     int.TryParse(melhorPontuacao.Substring(melhorPontuacao.LastIndexOf(@":") + 1), out melhorSegundo);
                     Debug.Log(melhorPontuacao);
                     Debug.Log(melhorMinuto + ":" + melhorSegundo + "PESCADO");
-                    if (minutes <= melhorMinuto)
+                   if((melhorMinuto + melhorSegundo) == 0)
                     {
-                        if (seconds <= melhorSegundo)
+                        record.text = "O SEU É O MELHOR TEMPO! " + minutes.ToString() + " : " + seconds.ToString();
+                        PlayerPrefs.SetString("melhorTempo", minutes.ToString() + " : " + seconds.ToString());
+                        comparaPontos = false;
+                    }
+                    else
+                    {
+                        if (minutes <= melhorMinuto)
                         {
-                            
-                            record.text = "O SEU É O MELHOR TEMPO! "+ melhorMinuto+":"+melhorSegundo;
-                            PlayerPrefs.SetString("melhorTempo", minutes.ToString() + " : " + seconds.ToString());
-                            comparaPontos = false;
-                        }
-                        else
-                        {
-                            record.text = "O melhor tempo não é o seu, veja só : " + melhorMinuto + ":" + melhorSegundo;
-                            comparaPontos = false;
+                            if (seconds <= melhorSegundo)
+                            {
+
+                                record.text = "O SEU É O MELHOR TEMPO! " + minutes.ToString() + " : " + seconds.ToString();
+                                PlayerPrefs.SetString("melhorTempo", minutes.ToString() + " : " + seconds.ToString());
+                                comparaPontos = false;
+                            }
+                            else
+                            {
+                                record.text = "O melhor tempo não é o seu, veja só : " + melhorMinuto + ":" + melhorSegundo;
+                                comparaPontos = false;
+                            }
                         }
                     }
+                    
                 }
                 
 
