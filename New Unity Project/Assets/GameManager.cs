@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,7 +27,11 @@ public class GameManager : MonoBehaviour
     private float minutes;
     private static float seconds = 60;
 
-    
+    public void ReloadLevel()
+    {
+        filhas = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     void Start()
     {
