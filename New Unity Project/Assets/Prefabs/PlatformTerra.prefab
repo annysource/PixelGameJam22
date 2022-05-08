@@ -22,7 +22,7 @@ PrefabInstance:
     - target: {fileID: 7331845280298743764, guid: ff5f9d4f100c340498e0b5fddf5162db, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 22daeaf90510d64459e9d99df8f5a714, type: 3}
+      objectReference: {fileID: 21300000, guid: 2979195136271bf42a756c7e5f89b611, type: 3}
     - target: {fileID: 7331845280298743765, guid: ff5f9d4f100c340498e0b5fddf5162db, type: 3}
       propertyPath: m_Points.Array.size
       value: 4

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
    
     public GameObject playerDoodler;
     public int level;
-    public int platformCount = 7;
+    public int platformCount = 20;
 
     public Text capivarias;
     public int capivaraCount = 1;
@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
         filhas = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void MenuInicial()
+    {
+        SceneManager.LoadScene("MenuPrincipal");
+    }
 
     void Start()
     {
@@ -51,7 +55,8 @@ public class GameManager : MonoBehaviour
 
         vivo = true;
         ganhou = false;
-        platformDefault.SetActive(true);
+       platformDefault.SetActive(true);
+       // platformDefault.SetActive(true);
     }
         
 
@@ -95,11 +100,11 @@ public class GameManager : MonoBehaviour
     void IdentificaLevel()//1, 2, 3, 4 e final
     {
         
-        if (playerDoodler.transform.position.y <= 15)
+        if (playerDoodler.transform.position.y <= 48)
         {//verifica se level esta construido, level =1
             level = 1;
            // Debug.Log("Level Terra Ativo na posicao "+ playerDoodler.transform.position.y);
-        } else if (playerDoodler.transform.position.y <= 25)
+        } else if (playerDoodler.transform.position.y <= 100)
         {
             level = 2;
            // Debug.Log("Level Floresta Ativo na posicao " + playerDoodler.transform.position.y);
