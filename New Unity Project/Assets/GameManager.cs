@@ -19,10 +19,10 @@ public class GameManager : MonoBehaviour
     public static bool vivo, ganhou, comparaPontos;
     public GameObject gameOver, vitoria, platformDefault;
   
-    public Text fimdejogo;
+   // public Text fimdejogo;
 
     public float totalTime;
-    public Text tempo, record;
+    public Text tempo, record, tempoFinal;
     private float minutes;
     private static float seconds = 60;
 
@@ -39,8 +39,9 @@ public class GameManager : MonoBehaviour
         comparaPontos = false;
         gameOver.SetActive(false);
         vitoria.SetActive(false);
-        fimdejogo.text = "";
+       // fimdejogo.text = "";
         record.text = "";
+        tempoFinal.text = "";
         // platform.SetActive(false);
 
         vivo = true;
@@ -185,7 +186,7 @@ public class GameManager : MonoBehaviour
             {
                 vitoria.SetActive(true);
                 platformDefault.SetActive(false);
-                fimdejogo.text = "CAPIVARIAS NO TOPO!";
+               // fimdejogo.text = "CAPIVARIAS NO TOPO!";
 
                 Destroy(playerDoodler.GetComponent<Rigidbody2D>());
 
@@ -194,7 +195,7 @@ public class GameManager : MonoBehaviour
                 if (comparaPontos)
                 {
                     string melhorPontuacao = PlayerPrefs.GetString("melhorTempo");
-
+                    tempoFinal.text = minutes.ToString() + " : " + seconds.ToString();
 
                     int melhorMinuto, melhorSegundo;
                     int.TryParse(melhorPontuacao.ToUpper(), out melhorMinuto);
@@ -203,7 +204,8 @@ public class GameManager : MonoBehaviour
                     Debug.Log(melhorMinuto + ":" + melhorSegundo + "PESCADO");
                    if((melhorMinuto + melhorSegundo) == 0)
                     {
-                        record.text = "O SEU É O MELHOR TEMPO! " + minutes.ToString() + " : " + seconds.ToString();
+                        //COMPARA ZERO - MELHOR TEMPO É O DO JOGADOR
+                        record.text = minutes.ToString() + " : " + seconds.ToString();
                         PlayerPrefs.SetString("melhorTempo", minutes.ToString() + " : " + seconds.ToString());
                         comparaPontos = false;
                     }
@@ -213,14 +215,14 @@ public class GameManager : MonoBehaviour
                         {
                             if (seconds <= melhorSegundo)
                             {
-
-                                record.text = "O SEU É O MELHOR TEMPO! " + minutes.ToString() + " : " + seconds.ToString();
+                                //MELHOR TEMPO É O DO JOGADOR
+                                record.text =  minutes.ToString() + " : " + seconds.ToString();
                                 PlayerPrefs.SetString("melhorTempo", minutes.ToString() + " : " + seconds.ToString());
                                 comparaPontos = false;
                             }
                             else
-                            {
-                                record.text = "O melhor tempo não é o seu, veja só : " + melhorMinuto + ":" + melhorSegundo;
+                            {//PERDEU PLAYBOY
+                                record.text =  melhorMinuto + ":" + melhorSegundo;
                                 comparaPontos = false;
                             }
                         }
@@ -242,8 +244,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            //TELA TRY AGAIN
             gameOver.SetActive(true);
-            fimdejogo.text = "A UNIDADE FALHOU";
+          //  fimdejogo.text = "A UNIDADE FALHOU";
         }
     }
     void PlayGame()
