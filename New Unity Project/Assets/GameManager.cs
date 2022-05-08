@@ -16,10 +16,17 @@ public class GameManager : MonoBehaviour
     public GameObject capivaraAlone;
     public static int filhas = 0;
     public GameObject capivara1, capivara2, capivara3;
-    public static bool vivo, ganhou;
-    public GameObject gameOver, vitoria;
+    public static bool vivo, ganhou, comparaPontos;
+    public GameObject gameOver, vitoria, platformDefault;
   
     public Text fimdejogo;
+
+    public float totalTime;
+    public Text tempo, record;
+    private float minutes;
+    private static float seconds = 60;
+
+    
 
     void Start()
     {
@@ -29,15 +36,20 @@ public class GameManager : MonoBehaviour
         capivara2.SetActive(false);
         capivara3.SetActive(false);
 
+        comparaPontos = false;
         gameOver.SetActive(false);
         vitoria.SetActive(false);
         fimdejogo.text = "";
+        record.text = "";
         // platform.SetActive(false);
 
         vivo = true;
         ganhou = false;
-
+        platformDefault.SetActive(true);
     }
+        
+
+
     void Update()
     {
         ControllLevel();
@@ -172,12 +184,49 @@ public class GameManager : MonoBehaviour
             if (ganhou)
             {
                 vitoria.SetActive(true);
+                platformDefault.SetActive(false);
                 fimdejogo.text = "CAPIVARIAS NO TOPO!";
+
+                Destroy(playerDoodler.GetComponent<Rigidbody2D>());
+
+
+
+                if (comparaPontos)
+                {
+                    string melhorPontuacao = PlayerPrefs.GetString("melhorTempo");
+
+
+                    int melhorMinuto, melhorSegundo;
+                    int.TryParse(melhorPontuacao.ToUpper(), out melhorMinuto);
+                    int.TryParse(melhorPontuacao.Substring(melhorPontuacao.LastIndexOf(@":") + 1), out melhorSegundo);
+                    Debug.Log(melhorPontuacao);
+                    Debug.Log(melhorMinuto + ":" + melhorSegundo + "PESCADO");
+                    if (minutes <= melhorMinuto)
+                    {
+                        if (seconds <= melhorSegundo)
+                        {
+                            
+                            record.text = "O SEU É O MELHOR TEMPO! "+ melhorMinuto+":"+melhorSegundo;
+                            PlayerPrefs.SetString("melhorTempo", minutes.ToString() + " : " + seconds.ToString());
+                            comparaPontos = false;
+                        }
+                        else
+                        {
+                            record.text = "O melhor tempo não é o seu, veja só : " + melhorMinuto + ":" + melhorSegundo;
+                            comparaPontos = false;
+                        }
+                    }
+                }
+                
+
+                
+               // Debug.Log(PlayerPrefs.GetString("melhorTempo"));
             }
             else
             {
                 IdentificaLevel();
                 CapivariasView();
+                PlayGame();
             }
             
         }
@@ -186,6 +235,15 @@ public class GameManager : MonoBehaviour
             gameOver.SetActive(true);
             fimdejogo.text = "A UNIDADE FALHOU";
         }
+    }
+    void PlayGame()
+    {
+        totalTime += Time.deltaTime;
+        minutes = (int)(totalTime / 60);
+        seconds = (int)(totalTime % 60);
+        tempo.text = minutes.ToString() + " : " + seconds.ToString();
+
+        
     }
 
 

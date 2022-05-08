@@ -9,7 +9,10 @@ public class Vitoria : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
+            GameManager.comparaPontos = true;
             GameManager.ganhou = true;
+            
+
         }
     }
 }
