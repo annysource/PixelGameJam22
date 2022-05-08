@@ -25,4 +25,10 @@ public class PlayerController : MonoBehaviour
         velocity.x = moveX;
         rb.velocity = velocity;
     }
+
+    void OnBecameInvisible()
+    {
+        GameManager.vivo = false;
+        Destroy(this.gameObject);
+    }
 }

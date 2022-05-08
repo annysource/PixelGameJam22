@@ -9,13 +9,17 @@ public class GameManager : MonoBehaviour
    
     public GameObject playerDoodler;
     public int level;
-    public int platformCount = 10;
+    public int platformCount = 7;
 
     public Text capivarias;
     public int capivaraCount = 1;
     public GameObject capivaraAlone;
     public static int filhas = 0;
     public GameObject capivara1, capivara2, capivara3;
+    public static bool vivo, ganhou;
+    public GameObject gameOver, vitoria;
+  
+    public Text fimdejogo;
 
     void Start()
     {
@@ -24,16 +28,21 @@ public class GameManager : MonoBehaviour
         capivara1.SetActive(false);
         capivara2.SetActive(false);
         capivara3.SetActive(false);
+
+        gameOver.SetActive(false);
+        vitoria.SetActive(false);
+        fimdejogo.text = "";
         // platform.SetActive(false);
 
-
+        vivo = true;
+        ganhou = false;
 
     }
     void Update()
     {
-        IdentificaLevel();
-        Debug.Log(filhas);
-        CapivariasView();
+        ControllLevel();
+       // Debug.Log(filhas);
+
         //Debug.Log(playerDoodler.transform.position.y);
     }
 
@@ -68,17 +77,20 @@ public class GameManager : MonoBehaviour
     void IdentificaLevel()//1, 2, 3, 4 e final
     {
         
-        if (playerDoodler.transform.position.y <= 12)
+        if (playerDoodler.transform.position.y <= 15)
         {//verifica se level esta construido, level =1
             level = 1;
            // Debug.Log("Level Terra Ativo na posicao "+ playerDoodler.transform.position.y);
-        } else if (playerDoodler.transform.position.y <= 22)
+        } else if (playerDoodler.transform.position.y <= 25)
         {
             level = 2;
            // Debug.Log("Level Floresta Ativo na posicao " + playerDoodler.transform.position.y);
         }
         ConstroiLevel();
     }
+
+    
+
     void ConstroiLevel()
     {
         if (level == 1)
@@ -91,7 +103,7 @@ public class GameManager : MonoBehaviour
             {
                 //Debug.Log("Bota Plataforma caralhooo");
                 platformTerra.SetActive(true);
-                Vector3 spawnPosition = new Vector3();
+                Vector3 spawnPosition = playerDoodler.transform.position;
                 //socorro deus
                 for (int i = 0; i < platformCount; i++)
                 {
@@ -104,7 +116,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("Adicionando Capivaraaaa");
                     Vector3 spawnCapivara1Position = new Vector3();
 
-                    spawnCapivara1Position.y += Random.Range(.5f, 5f);
+                    spawnCapivara1Position.y += Random.Range(1f, 5f);
                     spawnCapivara1Position.x = Random.Range(-2f, 2f);
                     Instantiate(capivaraAlone, spawnCapivara1Position, Quaternion.identity);
                     capivaraCount = capivaraCount - 1;
@@ -130,7 +142,7 @@ public class GameManager : MonoBehaviour
                 //socorro deus
                 for (int i = 0; i < platformCount; i++)
                 {
-                    spawnPosition.y += Random.Range(.5f, 2f);
+                    spawnPosition.y += Random.Range(.5f, 6f);
                     spawnPosition.x = Random.Range(-2f, 2f);
                     Instantiate(platformFloresta, spawnPosition, Quaternion.identity);
                 }
@@ -153,7 +165,28 @@ public class GameManager : MonoBehaviour
 
  
 
-
+    public void ControllLevel()
+    {
+        if (vivo)
+        {
+            if (ganhou)
+            {
+                vitoria.SetActive(true);
+                fimdejogo.text = "CAPIVARIAS NO TOPO!";
+            }
+            else
+            {
+                IdentificaLevel();
+                CapivariasView();
+            }
+            
+        }
+        else
+        {
+            gameOver.SetActive(true);
+            fimdejogo.text = "A UNIDADE FALHOU";
+        }
+    }
 
 
 
