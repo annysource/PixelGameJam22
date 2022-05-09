@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject platformTerra, platformFloresta;
+    public GameObject platformTerra, platformFloresta, platformUltima;
    
     public GameObject playerDoodler;
     public int level;
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     {
         platformTerra.SetActive(false);
         platformFloresta.SetActive(false);
+        platformUltima.SetActive(false);
         capivara1.SetActive(false);
         capivara2.SetActive(false);
         capivara3.SetActive(false);
@@ -104,10 +105,17 @@ public class GameManager : MonoBehaviour
         {//verifica se level esta construido, level =1
             level = 1;
            // Debug.Log("Level Terra Ativo na posicao "+ playerDoodler.transform.position.y);
-        } else if (playerDoodler.transform.position.y <= 100)
+        } else if (playerDoodler.transform.position.y <= 98)
         {
             level = 2;
-           // Debug.Log("Level Floresta Ativo na posicao " + playerDoodler.transform.position.y);
+            // Debug.Log("Level Floresta Ativo na posicao " + playerDoodler.transform.position.y);
+        }
+        else if (playerDoodler.transform.position.y <= 250)
+        {
+            Debug.Log("CHEGOU PORRAAAA");
+            level = 3;
+            platformCount = 50;
+            // Debug.Log("Level Floresta Ativo na posicao " + playerDoodler.transform.position.y);
         }
         ConstroiLevel();
     }
@@ -139,7 +147,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log("Adicionando Capivaraaaa");
                     Vector3 spawnCapivara1Position = new Vector3();
 
-                    spawnCapivara1Position.y += Random.Range(1f, 5f);
+                    spawnCapivara1Position.y += Random.Range(.7f, 5f);
                     spawnCapivara1Position.x = Random.Range(-2f, 2f);
                     Instantiate(capivaraAlone, spawnCapivara1Position, Quaternion.identity);
                     capivaraCount = capivaraCount - 1;
@@ -165,9 +173,43 @@ public class GameManager : MonoBehaviour
                 //socorro deus
                 for (int i = 0; i < platformCount; i++)
                 {
-                    spawnPosition.y += Random.Range(.5f, 6f);
+                    spawnPosition.y += Random.Range(.5f, 5f);
                     spawnPosition.x = Random.Range(-2f, 2f);
                     Instantiate(platformFloresta, spawnPosition, Quaternion.identity);
+                }
+
+                if (capivaraCount > 0)
+                {
+                    Debug.Log("Adicionando Capivaraaaa");
+                    Vector3 spawnCapivara2Position = playerDoodler.transform.position;
+
+                    spawnCapivara2Position.y += Random.Range(.5f, 5f);
+                    spawnCapivara2Position.x = Random.Range(-2f, 2f);
+                    Instantiate(capivaraAlone, spawnCapivara2Position, Quaternion.identity);
+                    capivaraCount = capivaraCount - 1;
+                    Debug.Log(capivaraCount);
+                }
+
+            }
+        }
+
+        else if (level == 3)
+        {
+            if (platformUltima.activeSelf == true)
+            {
+                // Debug.Log("Ja tem plataforma no level 2 galera");
+            }
+            else
+            {
+                // Debug.Log("Bota Plataforma nessa bostaaaa");
+                platformUltima.SetActive(true);
+                Vector3 spawnPosition = playerDoodler.transform.position;
+                //socorro deus
+                for (int i = 0; i < platformCount; i++)
+                {
+                    spawnPosition.y += Random.Range(.5f, 6f);
+                    spawnPosition.x = Random.Range(-2f, 2f);
+                    Instantiate(platformUltima, spawnPosition, Quaternion.identity);
                 }
 
                 if (capivaraCount > 0)

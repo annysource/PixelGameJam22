@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Capivara
   - platform
+  - Nivel2
+  - Nivel3
   layers:
   - Default
   - TransparentFX

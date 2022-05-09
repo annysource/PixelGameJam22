@@ -6,15 +6,36 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 10f;
     public Rigidbody2D rb;
-
+  //  public GameObject levelUpOne;
+    public Sprite Voa, Lua;
+    public RuntimeAnimatorController voando, deriva;
     private float moveX;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-   
-    void Update()
+ 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Nivel2"))
+        {
+
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = Voa;
+            this.GetComponent<Animator>().runtimeAnimatorController = voando as RuntimeAnimatorController;
+
+
+        }
+        if (collider.gameObject.CompareTag("Nivel3"))
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = Lua;
+            this.GetComponent<Animator>().runtimeAnimatorController = deriva as RuntimeAnimatorController;
+        }
+    }
+
+
+
+        void Update()
     {
         moveX = Input.GetAxis("Horizontal") * moveSpeed;
     }
